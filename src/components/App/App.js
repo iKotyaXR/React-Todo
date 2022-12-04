@@ -4,7 +4,6 @@ import Header from '../Header';
 import TodoList from '../TaskList';
 import Footer from '../Footer';
 import './App.css';
-import { el } from 'date-fns/locale';
 
 export default class App extends Component {
   maxId = 1;

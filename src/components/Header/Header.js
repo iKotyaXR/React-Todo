@@ -2,10 +2,10 @@ import React from 'react';
 
 import NewTaskForm from '../NewTaskForm';
 
-const Header = ({createTask}) => (
+const Header = ({ createTask }) => (
   <header>
     <h1>todos</h1>
-    <NewTaskForm createTask = {createTask}/>
+    <NewTaskForm createTask={createTask} />
   </header>
 );
 

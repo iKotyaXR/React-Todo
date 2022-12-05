@@ -18,7 +18,7 @@ TaskList.defaultProps = {
 };
 
 TaskList.propTypes = {
-  tasks:PropTypes.arrayOf(PropTypes.object),
+  tasks: PropTypes.arrayOf(PropTypes.object),
   onDeleted: PropTypes.func,
   setCompleted: PropTypes.func,
 };

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 
 import './TaskFilter.css';
 
@@ -34,3 +36,7 @@ export default class TaskFilter extends Component {
     return <ul className="filters">{liFilters}</ul>;
   }
 }
+
+TaskFilter.propTypes = {
+  showFilter: PropTypes.func,
+};

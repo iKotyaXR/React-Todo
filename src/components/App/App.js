@@ -10,7 +10,6 @@ export default class App extends Component {
   state = {
     todoData: [this.createTaskObject('Выучить React'), this.createTaskObject('Выучить TypeScript')],
     renderData: () => this.state.todoData.filter((el) => this.filterTask(this.state.filter, el)),
-    activeButton: 1,
     filter: 'all',
   };
 
@@ -26,7 +25,7 @@ export default class App extends Component {
   };
 
   createTaskObject(task) {
-    return { task: task, id: this.maxId++, date: Date.now(), completed: false };
+    return { task: task, id: this.maxId++, };
   }
 
   createTask = (e) => {

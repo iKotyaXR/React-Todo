@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import './NewTaskForm.css';
 
@@ -11,3 +12,7 @@ export default class NewTodo extends Component {
     );
   }
 }
+
+NewTodo.propTypes = {
+  createTask: PropTypes.func,
+};

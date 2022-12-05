@@ -7,6 +7,7 @@ import './App.css';
 
 export default class App extends Component {
   maxId = 1;
+
   state = {
     todoData: [this.createTaskObject('Выучить React'), this.createTaskObject('Выучить TypeScript')],
     renderData: () => this.state.todoData.filter((el) => this.filterTask(this.state.filter, el)),
@@ -15,8 +16,8 @@ export default class App extends Component {
 
   onDeleted = (id) => {
     this.setState(({ todoData }) => {
-      let newTodoData = JSON.parse(JSON.stringify(todoData));
-      let idx = newTodoData.findIndex((el) => el['id'] === id);
+      const newTodoData = JSON.parse(JSON.stringify(todoData));
+      const idx = newTodoData.findIndex((el) => el.id === id);
       newTodoData.splice(idx, 1);
       return {
         todoData: newTodoData,
@@ -25,13 +26,13 @@ export default class App extends Component {
   };
 
   createTaskObject(task) {
-    return { task: task, id: this.maxId++ };
+    return { task, id: this.maxId++ };
   }
 
   createTask = (e) => {
     e.preventDefault();
     this.setState(({ todoData }) => {
-      let newTodoData = JSON.parse(JSON.stringify(todoData));
+      const newTodoData = JSON.parse(JSON.stringify(todoData));
       newTodoData.push(this.createTaskObject(e.target[0].value));
       e.target[0].value = '';
       return {
@@ -41,10 +42,10 @@ export default class App extends Component {
   };
 
   setCompleted = (id, value) => {
-    let completed = value.target.checked;
+    const completed = value.target.checked;
     this.setState(({ todoData }) => {
-      let newTodoData = JSON.parse(JSON.stringify(todoData));
-      let idx = newTodoData.findIndex((el) => el['id'] === id);
+      const newTodoData = JSON.parse(JSON.stringify(todoData));
+      const idx = newTodoData.findIndex((el) => el.id === id);
       newTodoData[idx].completed = completed;
       return {
         todoData: newTodoData,
@@ -53,11 +54,9 @@ export default class App extends Component {
   };
 
   clearCompleted = () => {
-    this.setState(({ todoData }) => {
-      return {
-        todoData: todoData.filter((el) => !el.completed),
-      };
-    });
+    this.setState(({ todoData }) => ({
+      todoData: todoData.filter((el) => !el.completed),
+    }));
   };
 
   filterTask(filter, element) {
@@ -74,12 +73,10 @@ export default class App extends Component {
   }
 
   showFilter = (el) => {
-    this.setState(() => {
-      return { filter: el.toLowerCase() };
-    });
+    this.setState(() => ({ filter: el.toLowerCase() }));
   };
 
-  render = () => {
+  render() {
     return (
       <section className="todoapp">
         <Header createTask={this.createTask} />
@@ -93,5 +90,5 @@ export default class App extends Component {
         </section>
       </section>
     );
-  };
+  }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { formatDistanceToNow } from 'date-fns';
 
 export default class Task extends Component {
@@ -29,8 +28,8 @@ export default class Task extends Component {
             <span className="description">{task}</span>
             <span className="created">created {formatDistanceToNow(this.date)} ago</span>
           </label>
-          <button className="icon icon-edit"></button>
-          <button onClick={onDeleted} className="icon icon-destroy"></button>
+          <button className="icon icon-edit" />
+          <button onClick={onDeleted} className="icon icon-destroy" />
         </div>
       </li>
     );

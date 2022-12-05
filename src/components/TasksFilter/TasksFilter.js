@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 
 import './TaskFilter.css';
 
-const Filter = ({ name, onClick, className }) => (
-  <li>
-    <button className={className} onClick={onClick}>
-      {name}
-    </button>
-  </li>
-);
+function Filter({ name, onClick, className }) {
+  return (
+    <li>
+      <button className={className} onClick={onClick}>
+        {name}
+      </button>
+    </li>
+  );
+}
 
 export default class TaskFilter extends Component {
   state = {

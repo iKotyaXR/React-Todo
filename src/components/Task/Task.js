@@ -8,7 +8,7 @@ export default class Task extends Component {
   };
 
   componentDidMount() {
-    this.timer = setInterval(() => {
+    this.timer setInterval(() => {
       this.setState(() => ({ date: this.date }));
     }, 1000);
   }

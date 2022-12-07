@@ -9,10 +9,11 @@ function edit() {
 function editText(el) {
   el.preventDefault();
   let text = el.target[0].value;
-  this.props.editTask(text);
+  if (text.length > 0) {
+    this.props.editTask(text);
+  }
   this.setState(() => ({ edit: false }));
 }
-
 function TaskText(edit) {
   if (edit) {
     return (

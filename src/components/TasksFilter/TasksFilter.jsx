@@ -13,6 +13,13 @@ function Filter({ name, onClick, className }) {
   );
 }
 
+function clickFilter(el, showFilter) {
+  showFilter(el.name);
+  this.setState({
+    active: el.name,
+  });
+}
+
 export default class TaskFilter extends Component {
   state = {
     active: 'All',
@@ -26,10 +33,7 @@ export default class TaskFilter extends Component {
         key={el.name}
         className={this.state.active === el.name ? 'selected' : null}
         onClick={() => {
-          showFilter(el.name);
-          this.setState({
-            active: el.name,
-          });
+          clickFilter.call(this, el, showFilter);
         }}
         {...el}
       />

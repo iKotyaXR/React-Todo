@@ -7,7 +7,9 @@ export default class NewTodo extends Component {
   render() {
     return (
       <form onSubmit={this.props.createTask}>
-        <input className="new-todo" placeholder="What needs to be done?" autoFocus />
+        <label>
+          <input className="new-todo" id="plc" placeholder="What needs to be done?" autoFocus />
+        </label>
       </form>
     );
   }

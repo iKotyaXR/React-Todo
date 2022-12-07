@@ -29,16 +29,28 @@ export default class App extends Component {
     return { task, id: this.maxId++ };
   }
 
-  createTask = (e) => {
-    e.preventDefault();
+  editTask = (taskId, value) => {
     this.setState(({ todoData }) => {
-      const newTodoData = JSON.parse(JSON.stringify(todoData));
-      newTodoData.push(this.createTaskObject(e.target[0].value));
-      e.target[0].value = '';
+      let newData = JSON.parse(JSON.stringify(todoData));
+      let task = newData.find((el) => el.id == taskId);
+      task.task = value;
       return {
-        todoData: newTodoData,
+        todoData: newData,
       };
     });
+  };
+
+  createTask = (e) => {
+    e.preventDefault();
+    if (e.target[0].value.length > 0)
+      this.setState(({ todoData }) => {
+        const newTodoData = JSON.parse(JSON.stringify(todoData));
+        newTodoData.push(this.createTaskObject(e.target[0].value));
+        e.target[0].value = '';
+        return {
+          todoData: newTodoData,
+        };
+      });
   };
 
   setCompleted = (id, value) => {
@@ -81,7 +93,12 @@ export default class App extends Component {
       <section className="todoapp">
         <Header createTask={this.createTask} />
         <section className="main">
-          <TodoList tasks={this.state.renderData()} onDeleted={this.onDeleted} setCompleted={this.setCompleted} />
+          <TodoList
+            tasks={this.state.renderData()}
+            onDeleted={this.onDeleted}
+            setCompleted={this.setCompleted}
+            editTask={this.editTask}
+          />
           <Footer
             showFilter={this.showFilter}
             clearCompleted={this.clearCompleted}

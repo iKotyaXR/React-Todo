@@ -68,7 +68,6 @@ export default class Task extends Component {
 }
 
 Task.defaultProps = {
-  date: Date.now(),
   completed: false,
 };
 Task.propTypes = {

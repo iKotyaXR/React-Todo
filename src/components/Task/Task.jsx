@@ -51,7 +51,7 @@ export default class Task extends Component {
   }
 
   render() {
-    const { task, date, onDeleted, completed, setCompleted, editTask } = this.props;
+    const { task, date, onDeleted, completed, setCompleted } = this.props;
     this.date = date;
     this.task = task;
     return (

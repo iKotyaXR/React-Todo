@@ -26,7 +26,7 @@ export default class App extends Component {
   };
 
   createTaskObject(task, timer) {
-    return { task, id: this.maxId++, date: Date.now(), timer: timer ? timer : 1000 * 15 };
+    return { task, id: this.maxId++, date: Date.now(), timer: timer ? timer : 1000 * 60 * 15 };
   }
 
   editTask = (taskId, value) => {

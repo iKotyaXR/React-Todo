@@ -18,6 +18,7 @@ export default class TaskList extends Component {
           completed={el.completed}
           date={el.date}
           id={el.id}
+          timer={el.timer}
           editTask={(value) => editTask(el.id, value)}
         />
       );

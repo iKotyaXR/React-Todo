@@ -14,6 +14,26 @@ function editText(el) {
   }
   this.setState(() => ({ edit: false }));
 }
+
+function pauseTimer() {
+  this.setState({ paused: true });
+}
+function playTimer() {
+  this.setState({ paused: false });
+}
+
+function timerTask() {
+  let { timer } = this.state;
+  let minutes = Math.floor(timer / (1000 * 60));
+  let seconds = Math.floor((timer % (1000 * 60)) / 1000);
+
+  if (timer > 0) {
+    return `  ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
+  } else {
+    return '  0:0';
+  }
+}
+
 function TaskText(edit) {
   if (edit) {
     return (
@@ -26,8 +46,13 @@ function TaskText(edit) {
   } else
     return (
       <label htmlFor={this.props.id}>
-        <span className="description">{this.task}</span>
-        <span className="created">created {formatDistanceToNow(this.date)} ago</span>
+        <span className="title">{this.task}</span>
+        <span className="description">
+          <button className="icon icon-play" onClick={playTimer.bind(this)}></button>
+          <button className="icon icon-pause" onClick={pauseTimer.bind(this)}></button>
+          {timerTask.call(this)}
+        </span>
+        <span className="description">created {formatDistanceToNow(this.date)} ago</span>
       </label>
     );
 }
@@ -38,11 +63,16 @@ export default class Task extends Component {
   state = {
     date: this.date || Date.now(),
     edit: false,
+    paused: true,
+    timer: this.props.timer,
   };
 
   componentDidMount() {
     this.timer = setInterval(() => {
-      this.setState(() => ({ date: this.date }));
+      this.setState(({ paused }) => ({
+        date: this.date,
+        timer: paused ? this.state.timer : this.state.timer - 1000,
+      }));
     }, 1000);
   }
 
@@ -57,7 +87,13 @@ export default class Task extends Component {
     return (
       <li className={completed ? 'completed' : null}>
         <div className="view">
-          <input className="toggle" id={this.props.id} type="checkbox" onClick={setCompleted} />
+          <input
+            className="toggle"
+            defaultChecked={!!completed}
+            id={this.props.id}
+            type="checkbox"
+            onClick={setCompleted}
+          />
           {TaskText.call(this, this.state.edit)}
           <button className="icon icon-edit" onClick={edit.bind(this)} />
           <button onClick={onDeleted} className="icon icon-destroy" />
@@ -71,6 +107,7 @@ Task.defaultProps = {
   completed: false,
 };
 Task.propTypes = {
+  timer: PropTypes.number,
   date: PropTypes.number,
   completed: PropTypes.bool,
   task: PropTypes.string,

@@ -9,7 +9,7 @@ export default class App extends Component {
   maxId = 1;
 
   state = {
-    todoData: [this.createTaskObject('Выучить React'), this.createTaskObject('Выучить TypeScript')],
+    todoData: [this.createTaskObject('fw'), this.createTaskObject('fw')],
     renderData: () => this.state.todoData.filter((el) => this.filterTask(this.state.filter, el)),
     filter: 'all',
   };
@@ -25,8 +25,8 @@ export default class App extends Component {
     });
   };
 
-  createTaskObject(task) {
-    return { task, id: this.maxId++, date: Date.now() };
+  createTaskObject(task, timer) {
+    return { task, id: this.maxId++, date: Date.now(), timer: timer ? timer : 1000 * 15 };
   }
 
   editTask = (taskId, value) => {
@@ -42,15 +42,21 @@ export default class App extends Component {
 
   createTask = (e) => {
     e.preventDefault();
-    if (e.target[0].value.length > 0)
+    if (e.target[0].value.length > 0) {
+      let mins = +e.target[1].value || 0;
+      let secs = +e.target[2].value || 0;
+
+      let timer = (mins * 60 + secs) * 1000;
+      console.log(timer);
       this.setState(({ todoData }) => {
         const newTodoData = JSON.parse(JSON.stringify(todoData));
-        newTodoData.push(this.createTaskObject(e.target[0].value));
-        e.target[0].value = '';
+        newTodoData.push(this.createTaskObject(e.target[0].value, timer));
+        for (let target of e.target) target.value = '';
         return {
           todoData: newTodoData,
         };
       });
+    }
   };
 
   setCompleted = (id, value) => {

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 
-function edit() {
+function edit(el) {
+  console.log(el);
   this.setState(({ edit }) => ({ edit: !edit }));
 }
 
 function editText(el) {
   el.preventDefault();
+  el.target[0].value = this.task;
   let text = el.target[0].value;
   if (text.length > 0) {
     this.props.editTask(text);
@@ -39,7 +41,7 @@ function TaskText(edit) {
     return (
       <label htmlFor={this.props.id}>
         <form onSubmit={editText.bind(this)}>
-          <input className="description"></input>
+          <input className="description" value={this.task} autoFocus></input>
         </form>
       </label>
     );
